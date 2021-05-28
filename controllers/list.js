@@ -1,18 +1,15 @@
 const db = require('../database/mysql')
 
 exports.getAll = async (req, res) => {
-//   await db.query(`CREATE TABLE profesori
+//   await db.query(`CREATE TABLE produse
 // (
-// id_prof INT AUTO_INCREMENT PRIMARY KEY,
-// Nume VARCHAR(50) not null,
-// Prenume VARCHAR(50) not null,
-// data_nasterii date not null,
-// Adresa_domicil VARCHAR(50) not null,
-// adresa_email VARCHAR(50),
-// nr_telefon int(14)
+// id INT AUTO_INCREMENT PRIMARY KEY,
+// denumire VARCHAR(50) NOT NULL,
+// pret INT NOT NULL
 // );`)
+
   try {
-    res.status(200).send(await db.query(`SELECT * FROM profesori`))
+    res.status(200).send(await db.query(`SELECT * FROM produse`))
   } catch (err) {
     res.status(500).send(err.message)
   }
@@ -20,7 +17,7 @@ exports.getAll = async (req, res) => {
 
 exports.get = async (req, res) => {
   try {
-    const [item] = await db.query(`SELECT * FROM profesori WHERE id_prof = ${req.params.id}`)
+    const [item] = await db.query(`SELECT * FROM produse WHERE id = ${req.params.id}`)
     if (item) {
       res.status(200).send(item)
     } else {
@@ -37,8 +34,8 @@ exports.post = async (req, res) => {
   try {
     const columns = Object.keys(req.body).join(',')
     const values = Object.values(req.body).join('\',\'')
-    const response = await db.query(`INSERT INTO profesori (${columns}) VALUES ('${values}')`)
-    const [insertedItem] = await db.query(`SELECT * FROM profesori WHERE id_prof = ${response.insertId}`)
+    const response = await db.query(`INSERT INTO produse (${columns}) VALUES ('${values}')`)
+    const [insertedItem] = await db.query(`SELECT * FROM produse WHERE id = ${response.insertId}`)
 
     res.status(201).send(insertedItem)
   } catch (err) {
@@ -51,8 +48,8 @@ exports.put = async (req, res) => {
     const updatedFields = Object.entries(req.body).map(([column, value]) => `${column} = '${value}'`)
       .join(', ')
 
-    await db.query(`UPDATE profesori SET ${updatedFields} WHERE id_prof = ${req.params.id}`)
-    const [insertedItem] = await db.query(`SELECT * FROM profesori WHERE id_prof = ${req.params.id}`)
+    await db.query(`UPDATE produse SET ${updatedFields} WHERE id = ${req.params.id}`)
+    const [insertedItem] = await db.query(`SELECT * FROM produse WHERE id = ${req.params.id}`)
 
     if (insertedItem) {
       res.status(200).send(insertedItem)
@@ -71,8 +68,8 @@ exports.patch = async (req, res) => {
     const updatedFields = Object.entries(req.body).map(([column, value]) => `${column} = '${value}'`)
       .join(', ')
 
-    await db.query(`UPDATE profesori SET ${updatedFields} WHERE id_prof = ${req.params.id}`)
-    const [insertedItem] = await db.query(`SELECT * FROM profesori WHERE id_prof = ${req.params.id}`)
+    await db.query(`UPDATE produse SET ${updatedFields} WHERE id = ${req.params.id}`)
+    const [insertedItem] = await db.query(`SELECT * FROM produse WHERE id = ${req.params.id}`)
 
     if (insertedItem) {
       res.status(200).send(insertedItem)
@@ -88,7 +85,7 @@ exports.patch = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    const response = await db.query(`DELETE FROM profesori WHERE id_prof = ${req.params.id}`)
+    const response = await db.query(`DELETE FROM produse WHERE id = ${req.params.id}`)
 
     if (response.affectedRows) {
       res.status(200).send('Запись успешно удалена')
