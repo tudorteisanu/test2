@@ -14,8 +14,9 @@ module.exports = (app) => {
 
   /**
    * This function comment is parsed by doctrine
-   * @route GET /cron/:id
+   * @route GET /cron/{id}
    * @group get - что то про этот роут
+   * @param {string} id.path.required - idska
    * @returns {object} 200 - Данные об одном пользователе
    * @returns {Error}  default - Unexpected error
    */
@@ -24,11 +25,16 @@ module.exports = (app) => {
   ])
 
   /**
+   * @typedef Produs
+   * @property {string} denumire.required
+   * @property {integer} pret.required
+   */
+
+  /**
    * This function comment is parsed by doctrine
    * @route POST /cron
    * @group get - что то про этот роут
-   * @param {string} denumire.required - Denumire de exemplu Ion
-   * @param {string} pret.required - Pret
+   * @param {Produs.model} body.body.required - the new produs
    * @returns {object} 200 - Данные об одном пользователе
    * @returns {Error}  default - Unexpected error
    */
@@ -38,10 +44,10 @@ module.exports = (app) => {
 
   /**
    * This function comment is parsed by doctrine
-   * @route PUT /cron/:id
+   * @route PUT /cron/{id}
    * @group get - что то про этот роут
-   * @param {string} email.query.required - username or email - eg: user@domain
-   * @param {string} password.query.required - user's password.
+   * @param {string} id.path.required - idska
+   * @param {Produs.model} body.body.required - the new produs
    * @returns {object} 200 - Данные об одном пользователе
    * @returns {Error}  default - Unexpected error
    */
@@ -51,10 +57,10 @@ module.exports = (app) => {
 
   /**
    * This function comment is parsed by doctrine
-   * @route PATCH /cron/:id
+   * @route PATCH /cron/{id}
    * @group get - что то про этот роут
-   * @param {string} email.query.required - username or email - eg: user@domain
-   * @param {string} password.query.required - user's password.
+   * @param {string} id.path.required - idska
+   * @param {Produs.model} body.body.required - the new produs
    * @returns {object} 200 - Данные об одном пользователе
    * @returns {Error}  default - Unexpected error
    */
@@ -64,10 +70,9 @@ module.exports = (app) => {
 
   /**
    * This function comment is parsed by doctrine
-   * @route DELETE /cron/:id
+   * @route DELETE /cron/{id}
    * @group get - что то про этот роут
-   * @param {string} email.query.required - username or email - eg: user@domain
-   * @param {string} password.query.required - user's password.
+   * @param {string} id.path.required - idska
    * @returns {object} 200 - Данные об одном пользователе
    * @returns {Error}  default - Unexpected error
    */
