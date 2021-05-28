@@ -28,6 +28,8 @@ module.exports = (app) => {
    * @typedef Produs
    * @property {string} denumire.required
    * @property {integer} pret.required
+   * @property {integer} ceva.required
+   * @property {integer} aplica.required
    */
 
   /**
